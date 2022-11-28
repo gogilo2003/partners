@@ -1,0 +1,31 @@
+{
+    "name": "gogilo/partners",
+    "description": "Admin CMS partners content type",
+    "keywords": [
+        "Admin CMS partners content type",
+        "cms",
+        "laravel-cms",
+        "content management system",
+        "bootstrap"
+    ],
+    "require": {
+        "gogilo/admin-md": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [{
+        "name": "Ogilo G. D. Ouma",
+        "email": "gogilo2003@hotmail.com"
+    }],
+    "autoload": {
+        "psr-4": {
+            "Ogilo\\Partners\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ogilo\\Partners\\ServiceProvider"
+            ]
+        }
+    }
+}
