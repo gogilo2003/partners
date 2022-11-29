@@ -34,7 +34,7 @@ const props = defineProps({
 const emit = defineEmits(['closed'])
 
 
-watch(() => props.show, (old, new) => {
-    console.log(old)
+watch(props, (newP) => {
+    console.log(newP);
 })
 </script>

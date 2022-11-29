@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Ogilo\Partners\Http\Controllers\Api\V1\PartnerController;
 
-Route::name('api')
-    ->prefix('api')
+Route::name('admin-api')
+    ->prefix('admin/api')
     ->group(function () {
         Route::name('-v1')
             ->prefix('v1')
@@ -14,6 +14,7 @@ Route::name('api')
                     ->group(function () {
                         Route::get('', [PartnerController::class, 'index']);
                         Route::post('', [PartnerController::class, 'store']);
+                        Route::post('logo', [PartnerController::class, 'logo']);
                         Route::patch('', [PartnerController::class, 'update']);
                         Route::delete('', [PartnerController::class, 'delete']);
                     });

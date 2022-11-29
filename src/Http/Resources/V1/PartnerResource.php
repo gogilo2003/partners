@@ -2,7 +2,6 @@
 
 namespace Ogilo\Partners\Http\Resources\V1;
 
-use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PartnerResource extends JsonResource

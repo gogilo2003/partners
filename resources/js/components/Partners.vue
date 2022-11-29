@@ -1,4 +1,7 @@
 <template>
+    <div class="buttons">
+        <button class="btn btn-primary btn-round" @click="addPartner"><i class="matrial-icons">add</i></button>
+    </div>
     <div class="partners-list">
         <Partner v-on:edit="editPartner($event)" v-for="partner in partners" :partner="partner" />
     </div>
@@ -56,7 +59,35 @@ const editPartner = (value) => {
     partner.value = value
     show.value = true
     edit.value = true
-    console.log(value);
+}
+
+const addPartner = () => {
+    partner.value = {
+        name: null,
+        logo: null,
+        phone: null,
+        email: null,
+        website: null,
+        socialmedia: []
+    }
+    edit.value = false
+    show.value = true
+}
+
+const savePartner = () => {
+    if (edit.value) {
+        axios.patch(`api/v1/partners`).then(response => {
+            console.log(response.data)
+        }).catch(error => {
+            console.log(error.response.data);
+        })
+    } else {
+        axios.post(`api/v1/partners`).then(response => {
+            console.log(response.data)
+        }).catch(error => {
+            console.log(error.response.data);
+        })
+    }
 }
 </script>
 

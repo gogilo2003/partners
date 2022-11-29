@@ -15,11 +15,11 @@ class CreatePartnersTable extends Migration
     {
         Schema::create('partners', function (Blueprint $table) {
             $table->id();
-            $table->string('logo');
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->string('website');
+            $table->string('logo')->nullable();
+            $table->string('name')->unique()->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('phone')->unique()->nullable();
+            $table->string('website')->unique()->nullable();
             $table->json('socialmedia')->nullable();
             $table->timestamps();
         });
