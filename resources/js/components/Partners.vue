@@ -1,24 +1,39 @@
 <template>
     <div class="buttons">
-        <button class="btn btn-primary btn-round" @click="addPartner"><i class="matrial-icons">add</i></button>
+        <button class="btn btn-primary btn-round btn-fab" @click="addPartner"><i class="material-icons">add</i></button>
     </div>
     <div class="partners-list">
         <Partner v-on:edit="editPartner($event)" v-for="partner in partners" :partner="partner" />
     </div>
     <Dialog :show="show" @closed="closed" header="Add/Edit Partner">
         <template #body>
-            <button class="btn btn-primary" @click="picShow = true">Picture</button>
+            <div class="form-grid row">
+                <div class="col-md-12 form-group is-invalid">
+                    <label for="nameInput">Partner's Name</label>
+                    <input v-model="partner.name" type="text" class="form-control" id="nameInput">
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="phoneInput">Partner's Phone</label>
+                    <input v-model="partner.phone" type="text" class="form-control" id="phoneInput">
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="emailInput">Partner's Email</label>
+                    <input v-model="partner.email" type="text" class="form-control" id="emailInput">
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="websiteInput">Partner's Website</label>
+                    <input v-model="partner.website" type="text" class="form-control" id="websiteInput">
+                </div>
+                <div class="col-md-12">
+                    <Socialmedia v-model="partner.socialmedia" label="Social media" />
+                </div>
+            </div>
         </template>
         <template #footer>
-            <button @click="save" class="btn btn-primary btn-round"><i class="material-icons">save</i>
-                Save</button>
             <button @click="close" class="btn btn-outline-primary btn-round"><i class="material-icons">close</i>
                 Close</button>
-        </template>
-    </Dialog>
-    <Dialog :show="picShow" header="Upload Picture" :size="4">
-        <template #body>
-            Picture Cropping and upload
+            <button @click="savePartner" class="btn btn-primary btn-round"><i class="material-icons">save</i>
+                Save</button>
         </template>
     </Dialog>
 </template>
@@ -27,6 +42,7 @@
 import { ref, onMounted } from 'vue'
 import Partner from './Partner'
 import Dialog from './Dialog'
+import Socialmedia from './Socialmedia'
 
 const title = ref('')
 const partners = ref([])
@@ -35,12 +51,10 @@ const partner = ref({})
 const show = ref(false)
 const edit = ref(false)
 
-const picShow = ref(false)
-
 onMounted(() => {
     title.value = "Partners listing"
 
-    axios.get(`/api/v1/partners`).then(response => {
+    axios.get(`/admin/api/v1/partners`).then(response => {
         partners.value = response.data.data
     }).catch(error => {
         console.log(error.response.data);
@@ -76,18 +90,22 @@ const addPartner = () => {
 
 const savePartner = () => {
     if (edit.value) {
-        axios.patch(`api/v1/partners`).then(response => {
+        axios.patch(`/admin/api/v1/partners`, partner.value).then(response => {
+            $.notify({
+                "message": ""
+            })
             console.log(response.data)
         }).catch(error => {
             console.log(error.response.data);
         })
     } else {
-        axios.post(`api/v1/partners`).then(response => {
+        axios.post(`/admin/api/v1/partners`, partner.value).then(response => {
             console.log(response.data)
         }).catch(error => {
             console.log(error.response.data);
         })
     }
+
 }
 </script>
 
@@ -96,23 +114,5 @@ const savePartner = () => {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 2rem;
-}
-
-.form-wrap {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba($color: #000000, $alpha: 0.35);
-    z-index: 99;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.btn-close {
-    float: right;
-    border-radius: 50% !important;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="partner">
-        <img :src="partner.logo" :alt="partner.name">
+        <img :src="partner.logo">
         <div class="details">
             <div class="field">
                 <span class="label">Name:</span> <span v-text="partner.name"></span>
