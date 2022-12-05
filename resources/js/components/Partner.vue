@@ -18,7 +18,10 @@ const output = ref(null)
 const partnerLogo = ref(null)
 
 const changeLogo = (event) => {
+    console.log('changeLogo1: ', imgSrc.value)
     imgSrc.value = URL.createObjectURL(event.target.files[0]);
+    console.log('changeLogo2: ', imgSrc.value)
+    cropper.value.replace(imgSrc.value)
 }
 
 watchEffect(() => {
@@ -53,7 +56,7 @@ const uploadLogo = () => {
         var config = {
             onUploadProgress: function (progressEvent) {
                 var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                output.value.innerHTML = `${percentCompleted}%`
+                output.value.innerHTML = `${percentCompleted} %`
             }
         };
 
@@ -61,13 +64,13 @@ const uploadLogo = () => {
             .then(function (res) {
                 output.value.className = 'container';
                 partnerLogo.value.src = res.data.logo;
-                showLogoDialog.value = false
+                showLogoDialog.value = false;
             })
             .catch(function (err) {
                 output.value.className = 'container text-danger';
                 output.value.innerHTML = err.message;
             });
-    })
+    });
 
 };
 
@@ -140,7 +143,6 @@ const logoDialogClosed = () => {
     padding: 1rem;
 
     img {
-        //border: 1px solid #555;
         margin: 0.5rem;
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.75);
         border-radius: 0.5rem;

@@ -55,7 +55,7 @@ class PartnerController extends ApiController
 
         $partner->save();
 
-        return $this->updateSuccess("Logo uploaded", ['id' => $partner->id, 'logo' => $partner->logo]);
+        return response()->json(["message" => "Logo uploaded", 'id' => $partner->id, 'logo' => $partner->logo]);
     }
 
     public function publish(DeletePartnerRequest $request)
