@@ -35,7 +35,7 @@ class ServiceProvider extends BaseProvider
 
         $this->publishes([
             __DIR__ . '/../public/css' => public_path('vendor/partners/css'),
-            // __DIR__ . '/../public/img' => public_path('vendor/partners/img'),
+            __DIR__ . '/../public/images' => public_path('vendor/partners/images'),
             __DIR__ . '/../public/js' => public_path('vendor/partners/js'),
         ], 'partners-assets');
 

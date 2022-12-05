@@ -9,6 +9,6 @@ class Partner extends Model
 {
     public function getLogoAttribute($value)
     {
-        return $value ? Storage::url($value) : null;
+        return $value ? Storage::url($value) : asset('vendor/partners/images/placeholder.jpg');
     }
 }
