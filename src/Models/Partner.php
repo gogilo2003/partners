@@ -9,6 +9,6 @@ class Partner extends Model
 {
     public function getLogoAttribute($value)
     {
-        return $value ? asset('storage/' . $value) : null;
+        return $value ? Storage::url($value) : null;
     }
 }

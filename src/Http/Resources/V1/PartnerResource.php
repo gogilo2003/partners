@@ -22,6 +22,7 @@ class PartnerResource extends JsonResource
             'phone' => $this->phone,
             'email' => $this->email,
             'website' => $this->website,
+            'published' => $this->published,
             'socialmedia' => json_decode($this->socialmedia),
             'created_at' => $this->created_at->toDateTimeString(),
         ];

@@ -14,8 +14,9 @@ Route::name('admin-api')
                     ->group(function () {
                         Route::get('', [PartnerController::class, 'index']);
                         Route::post('', [PartnerController::class, 'store']);
-                        Route::post('logo', [PartnerController::class, 'logo']);
+                        Route::put('logo', [PartnerController::class, 'logo']);
                         Route::patch('', [PartnerController::class, 'update']);
+                        Route::patch('publish', [PartnerController::class, 'publish']);
                         Route::delete('', [PartnerController::class, 'delete']);
                     });
             });

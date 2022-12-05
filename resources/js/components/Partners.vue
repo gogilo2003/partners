@@ -3,7 +3,8 @@
         <button class="btn btn-primary btn-round btn-fab" @click="addPartner"><i class="material-icons">add</i></button>
     </div>
     <div class="partners-list">
-        <Partner v-on:edit="editPartner($event)" v-for="partner in partners" :partner="partner" />
+        <Partner v-on:edit="editPartner($event)" v-on:published="publishedPartner" v-for="item in partners"
+            :partner="item" />
     </div>
     <Dialog :show="show" @closed="closed" header="Add/Edit Partner">
         <template #body>
@@ -106,6 +107,14 @@ const savePartner = () => {
         })
     }
 
+}
+
+const publishedPartner = data => {
+    let index = partners.value.findIndex(item => {
+        return item.id === data.id
+    })
+
+    partners.value[index].published = data.published
 }
 </script>
 

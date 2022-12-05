@@ -1,7 +1,7 @@
 <template>
     <div class="form-wrap container-fluid" v-if="open">
         <div class="row w-100">
-            <div :class="`offset-md-${(12 - size) / 2} col-md-${size}`">
+            <div class="offset-sm-0 col-sm-12" :class="`offset-md-${(12 - size) / 2} col-md-${size}`">
                 <div class="card w-100">
                     <div class="card-header card-header-primary">
                         <slot name="header">{{ header }}</slot>
@@ -66,7 +66,8 @@ function close() {
 }
 
 .card {
-    max-height: 100vh;
+    max-height: calc(100vh - 2rem);
+    margin-top: 3rem;
 
     .card-body {
         overflow-y: auto;

@@ -2,7 +2,6 @@
 
 namespace Ogilo\Partners\Http\Controllers\Api\V1;
 
-use Illuminate\Support\Str;
 use Ogilo\Partners\Models\Partner;
 use Ogilo\Partners\Http\Resources\V1\PartnerResource;
 use Ogilo\Partners\Http\Controllers\Api\ApiController;
@@ -52,11 +51,28 @@ class PartnerController extends ApiController
     {
         $partner = Partner::find($request->id);
 
-        $partner->logo = $request->logo->store('partners/logos');
+        $partner->logo = $request->logo->store('public/partners/logos');
 
         $partner->save();
 
-        return response()->json(["id" => $partner->id, "logo" => $partner->logo]);
+        return $this->updateSuccess("Logo uploaded", ['id' => $partner->id, 'logo' => $partner->logo]);
+    }
+
+    public function publish(DeletePartnerRequest $request)
+    {
+        $partner = Partner::find($request->id);
+
+        $partner->published = $partner->published ? 0 : 1;
+
+        $partner->save();
+
+        return response()->json(
+            [
+                "message" => "Partners has been " . ($partner->published ? "published" : "unpublished"),
+                'id' => $partner->id,
+                'published' => $partner->published
+            ]
+        );
     }
 
     public function delete(DeletePartnerRequest $request)
